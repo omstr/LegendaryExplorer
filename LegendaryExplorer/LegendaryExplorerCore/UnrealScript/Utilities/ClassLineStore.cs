@@ -75,7 +75,7 @@ namespace LegendaryExplorerCore.UnrealScript.Utilities
         public void Save()
         {
 
-            //Don't bother saving classes with line numbers beyond a scroll
+            //Don't bother saving classes with line numbers beyond a scroll by filtering the inner Dictionary to remove line numbers below ~70
             var filteredMap = map
                 .Where(kv => kv.Value != null && kv.Value.Count > 0)
                 .ToDictionary(
@@ -87,7 +87,6 @@ namespace LegendaryExplorerCore.UnrealScript.Utilities
 
             if (filteredMap.Values.Count == 0)
             {
-                // No items found, keep this avoid overwriting/saving?
                 return;
             }
 

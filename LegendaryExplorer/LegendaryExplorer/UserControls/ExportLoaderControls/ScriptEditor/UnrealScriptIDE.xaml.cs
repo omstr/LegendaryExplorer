@@ -496,6 +496,7 @@ namespace LegendaryExplorer.UserControls.ExportLoaderControls.ScriptEditor
                 {
                     var lineStore = ClassLineStore.GetStore(CurrentLoadedExport.Game);
                     var line = lineStore.GetLine(CurrentLoadedExport.FileRef.FileNameNoExtension, CurrentLoadedExport.ObjectNameString);
+
                     ASTNode ast = UnrealScriptCompiler.ExportToAstNode(CurrentLoadedExport, CurrentFileLib, new UnrealScriptOptionsPackage());
                     if (ast is null)
                     {
@@ -520,10 +521,9 @@ namespace LegendaryExplorer.UserControls.ExportLoaderControls.ScriptEditor
                         ScriptText = text;
                         textEditor.SyntaxHighlighting = syntaxInfo;
                     }
+                    //Auto-scroll to stored line
                     if ((line.HasValue))
                     {
-                        Debug.WriteLine($"init get line: {line.Value}");
-                        //System.InvalidOperationException: 'The calling thread cannot access this object because a different thread owns it
                         textEditor.ScrollToLine(line.Value);
                     }
 
@@ -1215,7 +1215,7 @@ namespace LegendaryExplorer.UserControls.ExportLoaderControls.ScriptEditor
 
         private void ButtonScroll_Click(object sender, RoutedEventArgs e)
         {
-            // TODO OM: Acceleration curve + smooth scroll like JS scrollTo
+            // Todo small: would be nice to have acceleration curve + smooth scroll like JS scrollTo
             textEditor.ScrollToHome();
         }
     }
